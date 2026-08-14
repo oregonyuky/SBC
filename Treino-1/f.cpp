@@ -2,32 +2,30 @@
 using namespace std;
 const int mxN = 1e5+1;
 int a[mxN];
+int c[mxN];
 int v[mxN];
 class VS{
     public: 
     int version;
-    VS(){
+    VS(int n){
         version = 0;
-        v = {0};
+        memset(c, 0, n * sizeof(int));
+        memset(v, 0, n * sizeof(int));
     }
     void clear(){
         version++;
     }
-    void getValue(int i, int cur_v){
-        return (v[i] == cur_v ? a[i] : 0);
+    int getValue(int i){
+        return (v[i] == version ? c[i] : 0);
     }
-    void inserir(int i, int n, int cur_v){
-        if(v[i] < cur_v){
-            v[i] = 0;
-        } else{
-            v[i] = n;
-        }
+    void inserir(int i){
+        v[i] = version;
     }
-}
-int V(int n){
-
-}
+};
 int main(){
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    #endif
     int n, m, h, t, bi, ci;
     cin >> t; 
     while(t--){
@@ -35,10 +33,19 @@ int main(){
         for(int i=0;i<n;i++){
             cin >> a[i];
         }
-        VS();
+        VS VS(n);
         for(int i=0;i<m;i++){
             cin >> bi >> ci;
-            
+            if(a[bi] + VS.getValue(bi) + ci <= h){
+                c[bi] += ci;
+                VS.inserir(bi);
+            }
+            else
+                VS.clear();
         }
+        for(int i=0;i<n;i++){
+            cout << a[i] + VS.getValue(i) << " ";
+        }
+        puts("");
     }
 }
