@@ -1,51 +1,50 @@
 #include <bits/stdc++.h>
+#define ll long long
 using namespace std;
-const int mxN = 1e5+1;
+    
+const int mxN = 2e5+1;
 int a[mxN];
-int c[mxN];
-int v[mxN];
-class VS{
-    public: 
-    int version;
-    VS(int n){
-        version = 0;
-        memset(c, 0, n * sizeof(int));
-        memset(v, 0, n * sizeof(int));
-    }
-    void clear(){
-        version++;
-    }
-    int getValue(int i){
-        return (v[i] == version ? c[i] : 0);
-    }
-    void inserir(int i){
-        v[i] = version;
-    }
-};
+int ca[mxN];
+int av[mxN];
+int cur;
+bool is_visited(int pos){
+    return av[pos] == cur;
+}
+int getV(int pos){
+    if(is_visited(pos)) return ca[pos];
+    return 0;
+}
 int main(){
     #ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
+        freopen("input.txt", "r", stdin);
     #endif
-    int n, m, h, t, bi, ci;
-    cin >> t; 
+    int t, n, m, h;
+    cin >> t;
     while(t--){
         cin >> n >> m >> h;
-        for(int i=0;i<n;i++){
+        cur = 0;
+        memset(av, 0, n * sizeof(int));
+        memset(ca, 0, n * sizeof(int));
+        for (int i = 0; i < n;i++){
             cin >> a[i];
         }
-        VS VS(n);
-        for(int i=0;i<m;i++){
-            cin >> bi >> ci;
-            if(a[bi] + VS.getValue(bi) + ci <= h){
-                c[bi] += ci;
-                VS.inserir(bi);
+        int x, y;
+        for (int i = 0; i < m;i++){
+            cin >> x >> y;
+            int pos = x - 1;
+            if((ll) a[pos] + getV(pos) + y <= h){
+                if (is_visited(pos))
+                    ca[pos] += y;
+                else
+                    ca[pos] = y;
+                av[pos] = cur;
             }
             else
-                VS.clear();
+                cur++;
         }
-        for(int i=0;i<n;i++){
-            cout << a[i] + VS.getValue(i) << " ";
-        }
+        for (int i = 0; i < n;i++)
+            cout << a[i] + getV(i) << " ";
         puts("");
     }
 }
+

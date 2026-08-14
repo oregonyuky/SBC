@@ -2,7 +2,9 @@
 using namespace std;
 
 int main(){
-    //freopen("input.txt", "r", stdin);
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt", "r", stdin);
+    #endif
     int n, t;
     cin >> t;
     while(t--){
