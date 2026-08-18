@@ -1,29 +1,32 @@
 #include <bits/stdc++.h>
+#define pb push_back
 using namespace std;
-const int mxN = 1e5+1;
-struct cmp{
-    bool operator()(const pair<int,int>&a, const pair<int,int>&b){
-        if(a.first != b.first)
-            return a.first > b.first;
-        return a.second < b.second;
-    }
-};
-void teste(){
+const int mxN = 2e5+1;
+vector<int> v[mxN];
+void solve(){
     #ifndef ONLINE_JUDGE
-        freopen("input.txt", "r", stdin);
+        freopen("../input.txt", "r", stdin);
     #endif
-    priority_queue<pair<int, int>, vector<pair<int,int>>, cmp> pq;
-    int n, m, ai, bi, res=0;
+    int n, m, ai, bi;
     cin >> n >> m;
     while(n--){
         cin >> ai >> bi;
-        pq.push({ai, bi});
+        if(m-ai>=0)v[m-ai].pb(bi);
+    }
+    priority_queue<int> pq;
+    int sum = 0;
+    for(int i=m;i>=0;i--){
+        while(!v[i].empty()){
+            pq.push(v[i].back());
+            v[i].pop_back();
+        }
         if(!pq.empty()){
-            res += pq.top();
+            sum += pq.top();
             pq.pop();
         }
     }
+    cout << sum << endl;
 }
 int main(){
-    teste();
+    solve();
 }

@@ -5,7 +5,7 @@ Treino para maratona de programação da SBC
 https://vjudge.net/contest/834750#rank
 | A | B | C | D | E | F | G | H | I | J | K | L | 
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-|  |  | ✅ | ✅ | ✅ | ✅ |  |  | | |  |  | 
+|  |  | ✅ | ✅ | ✅ | ✅ |  |  | | |  |✅|
 
 ## Treino 2 - (Trie, Hash, Segment Tree)
 https://vjudge.net/contest/835945#rank
